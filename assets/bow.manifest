@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2450527580
+CRC: 2472378603
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3dba7b9e5378ddb2bd514b89d935bdaf
+    Hash: 9d00951e0c959b81feef99381e6842eb
   TypeTreeHash:
     serializedVersion: 2
     Hash: 07353491aca6e6a29636b555171f2e48
@@ -28,14 +28,11 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Texture/Structure_HEA_VillageCloth_da.png
-- Assets/Texture/Structure_HEA_VillageCabin_da.png
 - Assets/Texture/Structure_HEA_PlayerShip_SignsDecal_da.png
 - Assets/Texture/Props_HEA_PlayerTools_da.png
 - Assets/Texture/Structure_HEA_PlayerShip_Posters_da.png
 - Assets/Texture/ShipComputer_SplashScreen_da.png
 - Assets/Texture/Props_HEA_CampsiteProps_da.png
 - Assets/Prefabs/bow.prefab
-- Assets/Texture/Structure_HEA_VillageMetal_da.png
-- Assets/Texture/Structure_HEA_PlayerShip_Glass_da.png
 - Assets/Texture/Structure_HEA_VillagePlanks_da.png
 Dependencies: []
