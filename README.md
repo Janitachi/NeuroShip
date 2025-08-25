@@ -13,6 +13,7 @@
  6. You can now start the game with the "Run Game" button.
 
  # Credits
+* ppgrules945 : for the Chibi Evil texture
 
  Special Thanks:
 
