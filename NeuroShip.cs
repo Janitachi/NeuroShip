@@ -18,6 +18,7 @@ namespace NeuroShip
         private Texture _VillageClothOriginal;
         private bool bowactive;
         private bool faceactive;
+        private bool breakingtexactive;
         private bool first = true;
         private bool loaded = false;
         private GameObject bow;
@@ -30,6 +31,7 @@ namespace NeuroShip
             var bundle = ModHelper.Assets.LoadBundle("assets/bow");
             bowactive = ModHelper.Config.GetSettingsValue<bool>("Bow");
             faceactive = ModHelper.Config.GetSettingsValue<bool>("Face");
+            breakingtexactive = ModHelper.Config.GetSettingsValue<bool>("BreakingTex");
 
             _bow = LoadPrefab(bundle, "Assets/Prefabs/bow.prefab");
 
@@ -44,13 +46,14 @@ namespace NeuroShip
 
         public override void Configure(IModConfig config)
         {
+            bowactive = config.GetSettingsValue<bool>("Bow");
+            faceactive = config.GetSettingsValue<bool>("Face");
+            breakingtexactive = config.GetSettingsValue<bool>("BreakingTex");
             if (loaded) {
-                bowactive = config.GetSettingsValue<bool>("Bow");
-                faceactive = config.GetSettingsValue<bool>("Face");
                 if (bowactive)
                 {
                     bow.SetActive(true);
-                    bow2.SetActive(true);
+                    bow2.SetActive(true); 
                 }
                 else
                 {
@@ -66,6 +69,12 @@ namespace NeuroShip
                 {
                     var front = GameObject.Find("Ship_Body/Module_Cockpit/Geo_Cockpit/Cockpit_Geometry/Cockpit_Exterior/CockpitExterior_GoldGlass").gameObject.GetComponent<MeshRenderer>().materials;
                     front[0].mainTexture = _VillageClothOriginal;
+                }
+                if (breakingtexactive)
+                {
+                    GameObject.Find("Ship_Body/Module_Supplies/Geo_Supplies/Supplies_Geometry/Supplies_Interior").gameObject.GetComponent<MeshRenderer>().materials[5].mainTexture = _CampsiteProps;
+                    GameObject.Find("Ship_Body/Module_Cabin/Geo_Cabin/Cabin_Geometry/Cabin_Interior/Cabin_Interior 1/Cabin_Interior 1_MeshPart0").gameObject.GetComponent<MeshRenderer>().materials[2].mainTexture = _CampsiteProps;
+                    Log("Broken Textures active, sadly couldn't fix the Lighting on that one... to repair the lighting turn the Option off and restart the game.");
                 }
             }
             
@@ -86,15 +95,16 @@ namespace NeuroShip
             Log("Changing materials and creating Bows");
             var ship = GameObject.Find("Ship_Body").gameObject;
             bow = GameObject.Instantiate(_bow, ship.transform);
+            //bow.GetComponent<MeshRenderer>().shadowCastingMode = ShadowCastingMode.Off;
             bow.transform.localPosition = new Vector3(-2.4f, 2.3f, -4.68f);
             bow.transform.Rotate(0f, -90f, 0f, Space.Self);
             bow.transform.localScale = new Vector3(2.34f, 2.4f,1.20453553f);
-            //bow.GetComponent<MeshRenderer>().shadowCastingMode = ShadowCastingMode.Off;
             bow2 = GameObject.Instantiate(_bow, ship.transform);
+            //bow2.GetComponent<MeshRenderer>().shadowCastingMode = ShadowCastingMode.Off;
             bow2.transform.localPosition = new Vector3(2.4f, 2.3f, 4.83f);
             bow2.transform.Rotate(0f, 90f, 0f, Space.Self);
             bow2.transform.localScale = new Vector3(2.34f, 2.4f, 1.20453553f);
-            //bow2.GetComponent<MeshRenderer>().shadowCastingMode = ShadowCastingMode.Off;
+
 
             if (bowactive)
             {
@@ -105,29 +115,21 @@ namespace NeuroShip
                 bow.SetActive(false);
                 bow2.SetActive(false);
             }
+            GameObject.Find("Ship_Body/Module_Cockpit/Geo_Cockpit/Cockpit_Geometry/Cockpit_Exterior/CockpitExterior_Chassis").gameObject.GetComponent<MeshRenderer>().materials[3].mainTexture = _CampsiteProps;
+            Log("Changed 1");
+            GameObject.Find("Ship_Body/Module_Cockpit/Geo_Cockpit/Cockpit_Geometry/Cockpit_Exterior/CockpitExterior_Chassis").gameObject.GetComponent<MeshRenderer>().materials[5].mainTexture = _PlayerShip_SignsDecal;
+            Log("Changed 2");
+            GameObject.Find("Ship_Body/Module_Cabin/Geo_Cabin/Cabin_Geometry/Cabin_Exterior").gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = _PlayerShip_SignsDecal;
+            Log("Changed 3");
+            GameObject.Find("Ship_Body/Module_Cabin/Geo_Cabin/Cabin_Geometry/Cabin_Exterior").gameObject.GetComponent<MeshRenderer>().materials[1].mainTexture = _CampsiteProps;
+            Log("Changed 4");
+            GameObject.Find("Ship_Body/Module_Supplies/Geo_Supplies/Supplies_Tech/Poster_LittleScout").gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = _PlayerShip_Posters;
+            Log("Changed 5");
+            GameObject.Find("Ship_Body/Module_Cabin/Geo_Cabin/Cabin_Tech/Cabin_Tech_Interior/Cabin_Poster").gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = _PlayerShip_Posters;
+            Log("Changed 6");
+            GameObject.Find("Ship_Body/Module_Cabin/Systems_Cabin/ShipLogPivot/ShipLog/ShipLogPivot/ShipLogSplashScreen").gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = _SplashScreen;
+            Log("Changed 7");           
 
-                var toUpdate = new string[]
-                {
-                "Ship_Body/Module_Cockpit/Geo_Cockpit/Cockpit_Geometry/Cockpit_Exterior/CockpitExterior_Chassis",
-                "Ship_Body/Module_Cockpit/Geo_Cockpit/Cockpit_Geometry/Cockpit_Interior/Cockpit_Interior_Chassis",
-                "Ship_Body/Module_Cabin/Geo_Cabin/Cabin_Geometry/Cabin_Exterior",
-                "Ship_Body/Module_Cabin/Geo_Cabin/Cabin_Geometry/Cabin_Interior/Cabin_Interior 1/Cabin_Interior 1_MeshPart0",
-                "Ship_Body/Module_Cabin/Geo_Cabin/Cabin_Geometry/Cabin_Interior/Cabin_Interior 1/Cabin_Interior 1_MeshPart1",
-                "Ship_Body/Module_Cabin/Geo_Cabin/Cabin_Tech/Cabin_Tech_Interior/Cabin_Poster",
-                "Ship_Body/Module_Cabin/Systems_Cabin/ShipLogPivot/ShipLog/ShipLogPivot/ShipLogSplashScreen",
-                "Ship_Body/Module_Supplies/Geo_Supplies/Supplies_Geometry/Supplies_Interior",
-                "Ship_Body/Module_Supplies/Geo_Supplies/Supplies_Tech/Poster_LittleScout",
-                "Ship_Body/Module_Engine/Geo_Engine/Engine_Geometry/Engine_Interior"
-                };
-            foreach (var s in toUpdate)
-            {
-                var work = GameObject.Find(s).gameObject.GetComponent<MeshRenderer>().materials;
-                foreach (var mat in work)
-                {
-                    if (mat.mainTexture == null) Log($"Couldn't find {mat.name} MainTexture");
-                    else mat.mainTexture = getTexture(mat);
-                }
-            }
             if (faceactive)
             {
                 var front = GameObject.Find("Ship_Body/Module_Cockpit/Geo_Cockpit/Cockpit_Geometry/Cockpit_Exterior/CockpitExterior_GoldGlass").gameObject.GetComponent<MeshRenderer>().materials;
@@ -147,19 +149,6 @@ namespace NeuroShip
                 front[0].mainTexture = _VillageClothOriginal;
             }
         }
-        private Texture getTexture(Material startMat)
-        {
-            Texture foundmat= startMat.mainTexture;
-            string name = startMat.name.Remove(startMat.name.Length - 11);
-            if (name == "ShipExterior_HEA_CampsiteProps_mat") foundmat = _CampsiteProps;
-            if (name == "ShipExterior_HEA_SignsDecal_mat") foundmat = _PlayerShip_SignsDecal;
-            if (name == "ShipInterior_HEA_CampsiteProps_mat") foundmat = _CampsiteProps;
-            if (name == "ShipInterior_HEA_SignsDecal_mat") foundmat = _PlayerShip_SignsDecal;
-            if (name == "ShipInterior_HEA_ComputerSplashScreen_mat") foundmat = _SplashScreen;
-            if (name == "Structure_HEA_PlayerShip_Posters_mat") foundmat = _PlayerShip_Posters;
-            return foundmat;
-        }
-
         private static GameObject LoadPrefab(AssetBundle bundle, string path)
         {
             var prefab = bundle.LoadAsset<GameObject>(path);
@@ -167,13 +156,13 @@ namespace NeuroShip
             // Repair materials             
             foreach (var renderer in prefab.GetComponents<MeshRenderer>())
             {
+                //renderer.shadowCastingMode = ShadowCastingMode.Off;
                 foreach (var mat in renderer.materials)
                 {
                     mat.shader = standardShader;
                     mat.renderQueue = 2000;
                 }
             }
-
             prefab.SetActive(false);
 
             return prefab;
