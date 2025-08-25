@@ -3,6 +3,7 @@
  ![Front](https://github.com/Janitachi/NeuroShip/blob/main/pictures/NeuroShip1.png)
  ![Side](https://github.com/Janitachi/NeuroShip/blob/main/pictures/NeuroShip2.png)
  ![Top](https://github.com/Janitachi/NeuroShip/blob/main/pictures/NeuroShip5.png)
+ ![Inside](https://github.com/Janitachi/NeuroShip/blob/main/pictures/NeuroShip3.png)
 
  You can turn some changed Textures on in the Menu, BUT you should turn them off before closing the game or it WILL break you interior lighting on the next game start.
  
